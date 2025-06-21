@@ -37,8 +37,8 @@ class projectAPI(APIView):
     def post(self, request):
         name = request.data.get("name")
         project_description = request.data.get("project_description")
-        project_link = request.data.get("project_link")
-        project_image = request.FILES.get("project_image")  
+        project_link = request.data.get("project_link","")
+        project_image = request.FILES.get("project_image", "")  
 
       
         # if not name or not project_description or not project_image:
