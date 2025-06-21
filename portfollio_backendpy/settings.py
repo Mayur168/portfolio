@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend',
     'rest_framework',
+    'corsheaders'
     # 'rest_framework.authtoken',
 ]
 
@@ -51,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'portfollio_backendpy.urls'
@@ -178,6 +181,22 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.Userserializer',
 }
 
+
+# CROSS HEADER Connection
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = ("http://localhost:3000", "http://localhost:3001", "http://localhost:5173", "http://127.0.0.1:8000", "http://localhost:8001", "https://portfolio-self-iota-66.vercel.app") # noqa
+CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 
 # Internationalization
