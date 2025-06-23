@@ -14,24 +14,26 @@ from django.db import transaction
 
 # project view
 class projectAPI(APIView):
-    def get(self, request):
+    def get(self, request, pk=None):
         try:
-            queryset = project.objects.all()
-            
-            # pagination
-            paginator = PageNumberPagination()
-            paginator.page_size = 3 
-            result_page = paginator.paginate_queryset(queryset, request)
-
-            serializer = projectSerializers(result_page, many=True)
-            return paginator.get_paginated_response(serializer.data)
-
+            if pk:  # Handle single project retrieval
+                project = project.objects.get(pk=pk)
+                serializer = projectSerializers(project)
+                return Response({"project": serializer.data}, status=status.HTTP_200_OK)
+            else:  # Handle paginated list
+                queryset = project.objects.all()
+                paginator = PageNumberPagination()
+                paginator.page_size = 3
+                result_page = paginator.paginate_queryset(queryset, request)
+                serializer = projectSerializers(result_page, many=True)
+                return paginator.get_paginated_response(serializer.data)
+        except project.DoesNotExist:
+            return Response({"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return self.create_error_response(f'An error occurred: {str(e)}')
 
-    
-    def create_error_response(self,message):
-        return Response({'error': message})
+    def create_error_response(self, message):
+        return Response({"error": message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
     def post(self, request):
