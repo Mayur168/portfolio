@@ -20,7 +20,7 @@ class projectAPI(APIView):
             
             # pagination
             paginator = PageNumberPagination()
-            paginator.page_size = 6 
+            paginator.page_size = 3 
             result_page = paginator.paginate_queryset(queryset, request)
 
             serializer = projectSerializers(result_page, many=True)
