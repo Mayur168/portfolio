@@ -9,7 +9,7 @@ class project (models.Model):
     name = models.CharField  (max_length=50)
     project_description = models.TextField()
     project_link = models.URLField(max_length=200, blank=True, null=True)
-    project_image = models.ImageField(upload_to='project_images/', blank=True, null=True)
+    project_image = models.URLField(blank=True, null=True)  # use URL instead of ImageField
 
     
     def __str__(self):
