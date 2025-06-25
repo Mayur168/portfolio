@@ -40,7 +40,7 @@ class ProjectAPI(APIView):
         name = request.data.get("name")
         project_description = request.data.get("project_description")
         project_link = request.data.get("project_link","")
-        project_image = request.FILES.get("project_image", "")  
+        project_image = request.data.get("project_image", "")  
 
       
         # if not name or not project_description or not project_image:
@@ -69,7 +69,7 @@ class ProjectAPI(APIView):
         name = request.data.get("name")
         project_description = request.data.get("project_description")
         project_link = request.data.get("project_link")
-        project_image = request.FILES.get("project_image") 
+        project_image = request.data.get("project_image") 
 
         try:
             project_obj = project.objects.get(pk=id)
